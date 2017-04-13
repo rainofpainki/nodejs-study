@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/register.css">
+    <link rel="stylesheet" href="/stylesheets/validation_tooltip.css">
+    <title><%= user_id %> 정보 수정</title>
+</head>
+
+<body>
+    <div class="container">
+        <div id="header">
+          <h2><%= user_id %> 정보 수정</h2>
+        </div>
+        <div id="container">
+            <form action="/modify" method="post" id="modifyForm">
+              <ul id="register_idpw" class="list-group">
+                  <li class="list-group-item">
+                    <input type="password" id="pwd" name="pwd" autocomplete="off"
+                    class="form-control input-lg int " maxlength="20" placeholder="비밀번호"
+                    required >
+                    <button id="newPwdBtn" type="button" class="btn btn-danger">비밀번호 변경</button>
+                  </li>
+              </ul>
+
+              <ul id="register_info" class="list-group">
+                  <li class="list-group-item">
+                      <input type="text" id="name" name="name" maxlength="20" class="form-control input-lg int" placeholder="이름" value="<%= user_name %>" required />
+                      <div id="nameMsg" class="error" style="display: none"></div>
+                  </li>
+                  <li class="list-group-item">
+                      <span class="gender-item">
+                        <span class="gender">
+                          <input type="radio" id="man" name="gender" value="0"
+                           <%= user_gender==0 ? 'checked':''%>>
+                          <label id="manLb" for="man">남자</label>
+                        </span>
+                      <span class="gender">
+                          <input type="radio" id="woman" name="gender" value="1"
+                          <%= user_gender==1 ? 'checked':''%>>
+                          <label id="womanLb" for="woman">여자</label>
+                        </span>
+                      </span>
+                    <div id="genderMsg" class="error" style="display: none"></div>
+                  </li>
+                  <li class="list-group-item">
+                      <div class="join_birth">
+                          <div class="bir_title">생일</div>
+                          <div class="bir_yy">
+                              <span class="ps_box">
+            				    	<input type="text" name="yy" id="yy" maxlength="4" class="int" value=<%= yy %>>
+  							</span>
+                          </div>
+
+                          <div class="bir_mm">
+                              <span class="ps_box">
+  					           <select id="mm" name="mm" title="월" class="form-control int">
+    						    	  <option value="">월</option>
+                        <%
+                          for(var i=0; i<13; i++) {
+                            if(i<10)  var j = '0'+i;
+                            else      var j = i;
+                        %>
+                          <option value="<%= j %>" <%= j==mm?'selected':'' %>><%= i %></option>
+                        <% } %>
+  							</select>
+  				          </span>
+
+                          </div>
+
+                          <div class=" bir_dd">
+                              <span class="ps_box">
+            										<input type="text" id="dd" name="dd" maxlength="2"  placeholder="일" class="int" value="<%= dd %>">
+            									</span>
+                          </div>
+                      </div>
+                      <div id="birthMsg" class="error" style="display: none"></div>
+                  </li>
+                  <li class="list-group-item">
+                      <input type="text" id="email" name="email" maxlength="100" class="form-control input-lg int" placeholder="이메일" value="<%= user_email %>"/>
+                      <div id="emailMsg" class="error" style="display: none"></div>
+                  </li>
+                  <li class="list-group-item">
+                      <input type="text" id="mobile" name="mobile" maxlength="100" class="form-control input-lg int" placeholder="휴대전화번호" value="<%= user_mobile %>" />
+                      <div id="mobileMsg" class="error" style="display: none"></div>
+                  </li>
+              </ul>
+              <button type="button" id="modify" class="btn btn-lg btn-warning">수정하기</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-validate.bootstrap-tooltip.min.js"></script>
+    <script type="text/javascript" src="/javascripts/modify.js"></script>
+
+</body>
+
+</html>
