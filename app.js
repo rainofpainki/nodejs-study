@@ -6,15 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-//var users = require('./routes/users');
-// 회원가입 추가 / 2017-04-03
-// var register = require('./routes/register');
-// // 로그인 추가 / 2017-04-12
-// var login = require('./routes/login');
-// // 로그아웃 추가 / 2017-04-12
-// var logout = require('./routes/logout');
-// // 회원정보수정 추가 / 2017-04-12
-// var modify = require('./routes/modify');
 
 var register = require('./routes/auth/register');
 var login = require('./routes/auth/login');
