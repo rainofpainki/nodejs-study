@@ -9,6 +9,11 @@
     min-width: 460px
 }
 
+#id {
+  display:inline;
+  width:67%;
+}
+
 @media only screen and (min-width: 1024px) {
     #container, #header {
         max-width: 768px;
@@ -145,7 +150,6 @@
   width:100%;
 }
 
-
 #pwd {
   width:80%;
   display:inline;
@@ -154,4 +158,9 @@
 #newPwdBtn {
   width:15%;
   display:inline;
+}
+
+#idCheck {
+    float: right;
+    margin-top: 5px;
 }

@@ -1,41 +1,55 @@
-var express = require('express');
-var router = express.Router();
-const {user} = require('../../models/user');
-var passwordHash = require('password-hash');
+const express = require('express');
+const router = express.Router();
+const crypto = require('crypto');
+const models  = require('../../models');
 
 /* GET auth/register view */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res)=>{
+  if(req.session.user_id) {
+    res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+    res.end("<script>alert('이미 로그인되어 있습니다.');location.replace('/');</script>");
+    return false;
+  } else {
     res.render('register');
+  }
 });
 
 /* POST auth/register create */
-router.post('/', function(req, res, next) {
+router.post('/', (req, res)=>{
+  if(req.body.pswd1 !== req.body.pswd2){
 
-  var hashedPassword = passwordHash.generate(req.body.pswd1, {
-      algorithm: 'sha256'
-  });
+    res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+    res.end("<script>alert('비밀번호 확인란을 다시 압력해주세요.'); history.back(-1);</script>");
+    return false;
+  }
 
-  user.create(
+  var hashedPassword = crypto.createHash('sha256').update(req.body.pswd1).digest('hex');
+
+  var ip =req.connection.remoteAddress;
+  var prefix = ip.substring(ip.indexOf(":"), ip.lastIndexOf(":")+1 );
+  ip = ip.replace(prefix, '');
+  models.user.create(
     {
-      user_id: req.body.id,
-      user_pwd: hashedPassword,
-      user_name: req.body.name,
-      user_gender: req.body.gender,
-      user_birthdate: req.body.yy + '-' + req.body.mm + '-' + req.body.dd,
-      user_email: req.body.email,
-      user_mobile: req.body.mobile
+      id: req.body.id,
+      pass: hashedPassword,
+      name: req.body.name,
+      birth: req.body.birth,
+      email: req.body.email,
+      tel: req.body.tel,
+      phone: req.body.phone,
+      ip: ip
     }
-  ).then(function(result) {
-    console.log(result);
+  ).then( ()=>{
     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-    res.end("<script>alert('회원가입이 완료되었습니다.\\n로그인 후 이용해주세요.');location.replace('/login');</script>");
+    res.end("<script>alert('회원가입이 완료되었습니다.');location.replace('/login');</script>");
     return true;
-  }).catch(function (err) {
-    console.log(err);
+  }).catch( (e)=>{
+    console.log(e);
     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-    res.end("<script>alert('회원가입 실패입니다.\\n관리자에게 문의해주세요.');location.replace('/register');</script>");
+    res.end("<script>alert('회원가입 실패입니다.');location.replace('/register');</script>");
     return false;
   });
+
 });
 
 module.exports = router;

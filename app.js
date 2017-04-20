@@ -4,21 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var index = require('./routes/index');
-
-var register = require('./routes/auth/register');
-var login = require('./routes/auth/login');
-var logout = require('./routes/auth/logout');
-var modify = require('./routes/auth/modify');
-
 var session = require('express-session');
 
 var app = express();
 
 // view engine setup
+app.engine('ejs', require('ejs-locals'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -35,11 +29,12 @@ app.use(session({
  saveUninitialized: true
 }));
 
-app.use('/', index);
-app.use('/register', register);
-app.use('/login', login);
-app.use('/logout', logout);
-app.use('/modify', modify);
+app.use('/', require('./routes/index'));
+app.use('/register', require('./routes/auth/register'));
+app.use('/login', require('./routes/auth/login'));
+app.use('/logout', require('./routes/auth/logout'));
+app.use('/modify', require('./routes/auth/modify'));
+app.use('/confirm', require('./routes/auth/confirm'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

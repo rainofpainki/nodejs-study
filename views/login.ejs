@@ -1,47 +1,17 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/stylesheets/register.css">
-    <link rel="stylesheet" href="/stylesheets/validation_tooltip.css">
-    <title>Node.js Test Homepage</title>
-</head>
-
-<body>
-    <div class="container">
-        <div id="header">
-            <h2>
-          Node.js Study
-        </h2>
-        </div>
-        <div id="container">
-            <form action="/login" method="post" id="registerForm">
-              <ul class="list-group">
-                <li class="list-group-item">
-                  <input type="text" name="id" class="form-control input-lg" placeholder="아이디">
-                  <input type="password" name="pwd" class="form-control input-lg" placeholder="비밀번호">
-                </li>
-              </ul>
-              <button type="submit" id="login" class="btn btn-lg btn-primary center-block">로그인</button>
-            </form>
-        </div>
-    </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
-    <script type="text/javascript" src="/javascripts/jquery-validate.bootstrap-tooltip.min.js"></script>
-
-
-</body>
-
-</html>
+<% layout('boilerplate') %>
+<div id="header">
+    <h2>
+  Node.js Study
+</h2>
+</div>
+<div id="container">
+    <form action="/login" method="post" id="registerForm">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <input type="text" name="id" class="form-control input-lg" placeholder="아이디">
+          <input type="password" name="pwd" class="form-control input-lg" placeholder="비밀번호">
+        </li>
+      </ul>
+      <button type="submit" id="login" class="btn btn-lg btn-primary center-block" autocomplete="off">로그인</button>
+    </form>
+</div>

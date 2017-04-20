@@ -1,19 +1,24 @@
-const { sequelize, DataTypes } = require('../controller/db');
-module.exports = {
-  user:
-      sequelize.define('user', {
-      user_no:          { type: DataTypes.INTEGER,  primaryKey: true,   autoIncrement: true },
-      user_id:          { type: DataTypes.STRING(20), allowNull:false },
-      user_pwd:         { type: DataTypes.STRING(100), allowNull:false },
-      user_name:        { type: DataTypes.STRING(20), allowNull:false},
-      user_gender:      { type: DataTypes.INTEGER, allowNull:true},
-      user_birthdate:   { type: DataTypes.DATE, allowNull:true},
-      user_email:       { type: DataTypes.STRING(100), allowNull:true},
-      user_mobile:      { type: DataTypes.STRING(11), allowNull:true},
-      use_status:       { type: DataTypes.STRING(1), allowNull:false, defaultValue:'Y'}
-    }, {
-      timestamps: false,
-      tableName: 'yello_user'
-    }),
-  sequelize:sequelize
-}
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define('user', {
+      idx      : { type : DataTypes.INTEGER(11), primaryKey: true
+                 , autoIncrement: true }
+    , id       : { type : DataTypes.STRING(50), allowNull: false
+                 , validate : { is: ["^[a-z0-9_-]+$",'i'] } }
+    , pass     : { type : DataTypes.STRING(200), allowNull: false }
+    , name     : { type : DataTypes.STRING(50) }
+    , tel      : { type : DataTypes.STRING(20) }
+    , phone    : { type : DataTypes.STRING(20) }
+    , email    : { type : DataTypes.STRING(100)
+                 , validate : { isEmail: true } }
+    , birth    : { type : DataTypes.DATEONLY
+                 , validate : { isDate: true } }
+    , reg_date : { type : DataTypes.DATEONLY
+                 , validate : { isDate: true }
+                 , defaultValue : DataTypes.NOW }
+    , ip       : { type : DataTypes.STRING(15)
+                 , validate : { isIP: true } }
+  }, {
+	  timestamps: false,
+	  tableName: 'user'
+  });
+};

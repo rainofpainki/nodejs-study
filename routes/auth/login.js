@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
-const {user} = require('../../models/user');
-var passwordHash = require('password-hash');
+const express = require('express');
+const router = express.Router();
+const crypto = require('crypto');
+const models  = require('../../models');
 
 /* GET auth/login view */
-router.get('/', function(req, res, next) {
-  if(req.session.user_id != '' && req.session.user_id != undefined) {
+router.get('/', (req, res)=>{
+  if(req.session.user_id) {
     res.render('index', {
       user_id: req.session.user_id
     });
@@ -15,13 +15,26 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST auth/login session@create */
-router.post('/', function(req, res, next) {
-  user.findAll({
-    attribute: ['user_pwd'],
-    where: {user_id: req.body.id}
-  }).then(function(result) {
-    var passwordHash = require('password-hash');
-    if(passwordHash.verify(req.body.pwd, result[0].dataValues.user_pwd) === true) {
+router.post('/', (req, res)=>{
+  var hashedPassword = crypto.createHash('sha256').update(req.body.pwd).digest('hex');
+
+  models.user.findAndCount({
+    where: {
+      id: req.body.id,
+      pass : hashedPassword
+    }
+  }).then((row)=>{
+    if(row.count>0) {
+      var ip =req.connection.remoteAddress;
+      var prefix = ip.substring(ip.indexOf(":"), ip.lastIndexOf(":")+1 );
+      ip = ip.replace(prefix, '');
+      models.user.update(
+                          {ip: ip},
+                          {where:
+                            {id:req.body.id}
+                          }
+                        );
+
       req.session.user_id = req.body.id;
       res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
       res.end("<script>alert('"+ req.body.id + "님 환영합니다!');location.replace('/');</script>");
@@ -29,11 +42,11 @@ router.post('/', function(req, res, next) {
       return true;
     } else {
       res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-      res.end("<script>alert('로그인 실패입니다.\\n비밀번호가 맞지 않습니다.');location.replace('/login');</script>");
+      res.end("<script>alert('로그인 실패입니다.\\n아이디나 비밀번호가 맞지 않습니다.');location.replace('/login');</script>");
       return false;
     }
-  }).catch(function(err){
-    console.log(err);
+  }).catch((e)=>{
+    console.log(e);
     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
     res.end("<script>alert('로그인 실패입니다.\\n다시 시도해주세요.');location.replace('/login');</script>");
     return false;

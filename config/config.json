@@ -1,0 +1,11 @@
+{
+  "development": {
+    "dialect": "mariadb",
+    "password": "12yello!@",
+    "username": "yello",
+    "database": "sharedb",
+    "dialectOptions": {
+      "multipleStatements": true
+    }
+  }
+}
