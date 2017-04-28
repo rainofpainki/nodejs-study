@@ -35,6 +35,7 @@ app.use('/login', require('./routes/auth/login'));
 app.use('/logout', require('./routes/auth/logout'));
 app.use('/modify', require('./routes/auth/modify'));
 app.use('/confirm', require('./routes/auth/confirm'));
+app.use('/attendance', require('./routes/attendance'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

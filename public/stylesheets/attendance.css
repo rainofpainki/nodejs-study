@@ -1,0 +1,54 @@
+.attd-list-wrap {
+
+}
+
+.input-wrap {
+  padding: 5px;
+  position: relative;
+  display: flex;
+}
+
+.input-wrap-col {
+  flex: 1 1 0%;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.input-wrap-col-end {
+  margin: 0 !important;
+  align-self: flex-end;
+  display: flex;
+  padding-right: 4px;
+  position: static;
+  bottom: 0;
+  right: 0;
+}
+
+.input-wrap-row {
+  padding:0px 15px 0px 25px;
+}
+
+#picture {
+  font-size: 1.5em;
+  display: block;
+  height: 100%;
+  padding-bottom: 60%;
+}
+
+.picture-wrapper {
+  cursor: pointer;
+  overflow: hidden;
+  display: flex !important;
+  outline: none;
+  padding: 0 6px !important;
+}
+
+.info-wrap {
+  padding-left: 8px;
+  color: #bbb;
+  font-size: 0.9em;
+}
+
+.submit_date {
+  color:#bbb;
+}

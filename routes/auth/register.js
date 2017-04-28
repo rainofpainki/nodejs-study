@@ -9,9 +9,8 @@ router.get('/', (req, res)=>{
     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
     res.end("<script>alert('이미 로그인되어 있습니다.');location.replace('/');</script>");
     return false;
-  } else {
-    res.render('register');
   }
+  res.render('register');
 });
 
 /* POST auth/register create */

@@ -9,7 +9,7 @@ router.get('/', (req, res)=>{
   // 세션 체크
   if(!req.session.user_id) {
     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-    res.end("<script>alert('로그인 후 이용해주세요.'); location.replace('/login ');</script>");
+    res.end("<script>alert('로그인 후 이용해주세요.'); location.replace('/login');</script>");
     return false;
   }
 
@@ -29,7 +29,7 @@ router.get('/', (req, res)=>{
   }).catch((e)=>{
     console.log(e);
     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-    res.end("<script>alert('데이터베이스 오류 발생!); location.replace('/login ');</script>");
+    res.end("<script>alert('데이터베이스 오류 발생!); location.replace('/login');</script>");
     return false;
   });
 
