@@ -6,12 +6,12 @@ const moment = require('moment');
 
 // 출석 조회
 router.get('/:date?', (req, res)=>{
-  // 세션 체크
-  // if(!req.session.user_id) {
-  //   res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-  //   res.end("<script>alert('로그인 후 이용해주세요.'); location.replace('/login');</script>");
-  //   return false;
-  // }
+  //세션 체크
+  if(!req.session.user_id) {
+    res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+    res.end("<script>alert('로그인 후 이용해주세요.'); location.replace('/login');</script>");
+    return false;
+  }
   var today  =moment().format("YYYY-MM-DD");
   var date = (req.query.date || today) ;
 
@@ -53,12 +53,11 @@ router.get('/:date?', (req, res)=>{
 // 출석 등록
 router.post('/', (req, res)=>{
   // 세션 체크
-  // if(!req.session.user_id) {
-  //   res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-  //   res.end("<script>alert('로그인 후 이용해주세요.'); location.replace('/login');</script>");
-  //   return false;
-  // }
-  req.session.user_id = 'yello';
+  if(!req.session.user_id) {
+    res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+    res.end("<script>alert('로그인 후 이용해주세요.'); location.replace('/login');</script>");
+    return false;
+  }
 
   models.user.find({
     attributes : ['idx'],
