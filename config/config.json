@@ -6,6 +6,7 @@
     "database": "sharedb",
     "dialectOptions": {
       "multipleStatements": true
-    }
+    },
+    "timezone": "+09:00"
   }
 }

@@ -3,7 +3,6 @@ const router = express.Router();
 const models  = require('../models');
 const moment = require('moment');
 
-
 // 출석 조회
 router.get('/:date?', (req, res)=>{
   //세션 체크
@@ -12,7 +11,7 @@ router.get('/:date?', (req, res)=>{
     res.end("<script>alert('로그인 후 이용해주세요.'); location.replace('/login');</script>");
     return false;
   }
-  var today  =moment().format("YYYY-MM-DD");
+  var today  = moment().format("YYYY-MM-DD");
   var date = (req.query.date || today) ;
 
   models.user.findAll({
@@ -64,11 +63,13 @@ router.post('/', (req, res)=>{
     where : {id : req.session.user_id}
   }).then((row)=>{
     var today = moment().format("YYYY-MM-DD");
+    var now = moment().format("YYYY-MM-DD HH:mm:ss");
+    
     models.attendance.upsert({
       idx: row.idx,
       date: today,
       memo: req.body.memo,
-      submit_date: moment().format("YYYY-MM-DD hh:mm:ss")
+      submit_date: now
     }).then((result)=>{
       console.log(result);
       res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
