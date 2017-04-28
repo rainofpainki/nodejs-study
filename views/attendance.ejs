@@ -9,9 +9,9 @@
 <div id="container">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <form id="search-form" action="/attendance" method="get" if-match="*">
+        <form id="searchForm" action="/attendance" method="get" if-match="*">
           <div class="input-group">
-            <input name="date" class="form-control" type="date" value="<%=date%>">
+            <input id="searchInput" name="date" class="form-control" type="date" value="<%=date%>">
             <span class="input-group-btn">
               <button id="searchBtn" type="button" class="btn btn-secondary">Search!</button>
             </span>
@@ -43,7 +43,7 @@
 
   <% if(hasInput) { %>
     <div class="input-wrap-row row">
-      <form id="attd-form" action="/attendance" method="post" if-match="*">
+      <form id="attdForm" action="/attendance" method="post" if-match="*">
         <div class="row input-wrap">
           <div class="input-wrap-col">
             <input name="memo" id="attd-input-text" type="text" class="form-control input-lg" placeholder="남길 말을 입력하세요.">

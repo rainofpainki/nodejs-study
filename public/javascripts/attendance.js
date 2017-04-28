@@ -1,13 +1,22 @@
 $("#attd-input-text").keypress((event)=> {
   if (event.which == 13) {
     event.preventDefault();
-    $("#attd-form").attr("method", "post");
-    $("#attd-form").submit();
+    $("#attdForm").attr("method", "post");
+    $("#attdForm").submit();
   }
 });
 
 
 $("#searchBtn").click(()=>{
-  $("#search-form").attr("method", "get");
-  $("#search-form").submit();
+  $("#searchForm").attr("method", "get");
+  $("#searchForm").submit();
+});
+
+
+$("#searchInput").keypress((event)=>{
+  if (event.which == 13) {
+    event.preventDefault();
+    $("#searchForm").attr("method", "get");
+    $("#searchForm").submit();
+  }
 });
